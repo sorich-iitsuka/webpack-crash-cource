@@ -1,0 +1,26 @@
+{
+  "name": "webpack-crash-cource",
+  "version": "1.0.0",
+  "description": "webpack練習用",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorich-iitsuka/webpack-crash-cource.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sorich-iitsuka/webpack-crash-cource/issues"
+  },
+  "homepage": "https://github.com/sorich-iitsuka/webpack-crash-cource#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "webpack": "^4.20.0",
+    "webpack-cli": "^3.2.1"
+  }
+}
