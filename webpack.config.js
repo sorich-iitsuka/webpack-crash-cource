@@ -14,6 +14,14 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
+      {
+        test: /\.(jpeg|jpg|png|gif|svg|icon)$/i,
+        loader: 'url-loader',
+        options: {
+          limit: 2048,
+          name: './images/[name].[ext]'
+        }
+      },
     ]
   },
   devServer: {
