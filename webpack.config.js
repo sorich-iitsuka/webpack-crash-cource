@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-var OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const outputPath = path.resolve(__dirname, 'dist');
 
@@ -10,65 +10,71 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: outputPath
+    path: outputPath,
   },
   module: {
     rules: [
       {
+        enforce: 'pre',
+        test: /|.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+      },
+      {
         test: /\.(c|sc)ss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(jpeg|jpg|png|gif|svg|icon)$/i,
         loader: 'url-loader',
         options: {
           limit: 2048,
-          name: './images/[name].[ext]'
-        }
+          name: './images/[name].[ext]',
+        },
       },
       {
         test: /\.m?jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+            presets: ['@babel/preset-env'],
+          },
+        },
       },
       {
         test: /\.html$/,
-        loader: 'html-loader'
-      }
-    ]
+        loader: 'html-loader',
+      },
+    ],
   },
   devServer: {
-    contentBase: outputPath
+    contentBase: outputPath,
   },
   plugins: [
     new HtmlWebPackPlugin(
       {
         template: './src/index.html',
-        filename: './index.html'
-      }
+        filename: './index.html',
+      },
     ),
     new MiniCssExtractPlugin(
       {
-        filename: '[name].[hash].css'
-      }
+        filename: '[name].[hash].css',
+      },
     ),
   ],
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          drop_console: true
-        }
-      }
-    }),
-    new OptimizeCssAssetsPlugin({})
-  ],
+        uglifyOptions: {
+          compress: {
+            drop_console: true,
+          },
+        },
+      }),
+      new OptimizeCssAssetsPlugin({}),
+    ],
   },
-  devtool: 'eval-source-map'
-}
+  devtool: 'eval-source-map',
+};
